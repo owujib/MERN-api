@@ -6,7 +6,11 @@ const authController = require('../controllers/auth.controller');
 const router = express.Router();
 
 //read data
-router.get('/', productController.getAllProducts);
+router.get(
+  '/',
+  // authController.isAuth,
+  productController.getAllProducts
+);
 
 // router.use(authController.isAuth);
 
@@ -21,11 +25,15 @@ router.patch('/update-product/:id', productController.updateProduct);
 
 router.patch(
   '/upload-img/:id',
-  authController.isAuth,
+  // authController.isAuth,
   productController.uploadProductImg
 );
 
 //delete data
-router.delete('/delete-product/:id', productController.deleteProduct);
+router.delete(
+  '/delete-product/:id',
+  authController.isAuth,
+  productController.deleteProduct
+);
 
 module.exports = router;

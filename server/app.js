@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 require('dotenv').config();
 
 //products
@@ -9,8 +10,9 @@ const AppError = require('./utils/appError');
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static('uploads'));
 
 app.use('/api/product', productRouter);
 app.use('/api/user', userRouter);
@@ -22,7 +24,6 @@ app.all('*', (req, res, next) => {
 
 //global error handler(middelware)
 app.use((err, req, res, next) => {
-  console.error(err.stack);
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
   res.status(err.statusCode).json({

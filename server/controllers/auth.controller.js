@@ -45,7 +45,7 @@ exports.login = async (req, res, next) => {
     }
 
     let token = jwt.sign({ id: userExist._id }, process.env.JWT_SECRET);
-    res.status(200).header('auth_token', token).json({ userId: userExist._id });
+    res.status(200).header('auth_token', token).json({ userExist });
   } catch (error) {
     console.log(error);
   }
@@ -62,6 +62,7 @@ exports.isAuth = async (req, res, next) => {
     const verified = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById({ _id: verified.id });
     req.user = user;
+    console.log(req.user);
     next();
   } catch (error) {
     next(error);
