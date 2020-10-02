@@ -21,6 +21,11 @@ export class Navigation extends Component {
                   Products
                 </Link>
               </Nav>
+              <Nav>
+                <Link className="nav-link" to="/new">
+                  Create Product
+                </Link>
+              </Nav>
             </Nav>
 
             <Nav className="mr-sm-2">

@@ -45,7 +45,7 @@ exports.login = async (req, res, next) => {
     }
 
     let token = jwt.sign({ id: userExist._id }, process.env.JWT_SECRET);
-    res.status(200).header('auth_token', token).json({ userExist });
+    res.status(200).header('auth_token', token).json({ id: userExist._id });
   } catch (error) {
     console.log(error);
   }
@@ -57,14 +57,31 @@ exports.isAuth = async (req, res, next) => {
     let token = req.header('auth_token');
 
     if (!token) {
-      res.status(403).json({ msg: 'user is not authorised please login' });
+      return res
+        .status(403)
+        .json({ msg: 'user is not authorised please login' });
     }
     const verified = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById({ _id: verified.id });
     req.user = user;
-    console.log(req.user);
     next();
   } catch (error) {
     next(error);
   }
+};
+
+exports.UserProfile = async (req, res, next) => {
+  let data = {
+    id: req.user._id,
+    cart: req.user.cart,
+    email: req.user.email,
+    createdAt: req.user.createdAt,
+    role: req.user.role,
+    fullname: req.user.fullname,
+    isAuth: true,
+    isAdmin: req.user.role !== 'admin' ? false : true,
+  };
+
+  res.status(200).json(data);
+  next();
 };

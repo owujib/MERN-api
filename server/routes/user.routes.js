@@ -12,6 +12,8 @@ router.post('/login', authController.login);
 
 router.use(authController.isAuth); //authorization middleware
 
+router.get('/profile', authController.UserProfile);
+
 //update profile
 router.patch('/update-profile', userController.uploadProfileImg);
 router.post('/add-to-cart/:id', userController.postCart);

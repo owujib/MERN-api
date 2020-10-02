@@ -15,13 +15,21 @@ router.get(
 // router.use(authController.isAuth);
 
 //create data
-router.post('/new-product', productController.createProduct);
+router.post(
+  '/new-product',
+  // authController.isAuth,
+  productController.createProduct
+);
 
 //read single data
 router.get('/:id', productController.getSingleProduct);
 
 //update data
-router.patch('/update-product/:id', productController.updateProduct);
+router.patch(
+  '/update-product/:id',
+  // authController.isAuth,
+  productController.updateProduct
+);
 
 router.patch(
   '/upload-img/:id',
@@ -32,7 +40,7 @@ router.patch(
 //delete data
 router.delete(
   '/delete-product/:id',
-  authController.isAuth,
+  // authController.isAuth,
   productController.deleteProduct
 );
 

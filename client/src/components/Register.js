@@ -61,7 +61,7 @@ export class Login extends Component {
               value={this.state.password}
             />
           </FormGroup>
-          <Button type="submit" className="text-center" variant="info">
+          <Button type="submit" className="text-center w-100" variant="info">
             Register
           </Button>
         </Form>

@@ -19,7 +19,6 @@ export class Login extends Component {
     axios
       .post('/api/user/login', data)
       .then((response) => {
-        console.log(response.headers.auth_token);
         localStorage.setItem('auth_token', response.headers.auth_token);
         return response.data;
       })
@@ -51,7 +50,7 @@ export class Login extends Component {
               name="password"
             />
           </FormGroup>
-          <Button type="submit" className="text-center" variant="info">
+          <Button type="submit" className="text-center w-100" variant="info">
             Login
           </Button>
         </Form>

@@ -3,6 +3,7 @@ import { Row, Col, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Auth from '../hoc/Auth';
+import { withRouter } from 'react-router-dom';
 
 export class ProductList extends Component {
   state = {
@@ -23,22 +24,23 @@ export class ProductList extends Component {
   }
 
   render() {
-    console.log(this.state);
+    console.log(this.props);
     const productList = this.state.products.map((product, id) => {
-      console.log('localhost:4000/' + product.productImg);
-
       return (
-        <Col key={id}>
+        <Col className=" col-md-3 mb-3" key={id}>
           <Card>
-            <h1>
+            <h5>
               <Link to={'product/' + product._id}>{product.name}</Link>
-            </h1>
-            <img
-              src={`http://localhost:4000/${product.productImg}`}
-              width="200"
-              alt="...img"
-            />
-            <p>{product.decription}</p>
+            </h5>
+            <Card.Body>
+              <img
+                src={`http://localhost:4000/${product.productImg}`}
+                width="200"
+                height="300"
+                alt="...img😟"
+              />
+              <p>{product.decription}</p>
+            </Card.Body>
           </Card>
         </Col>
       );
@@ -51,4 +53,4 @@ export class ProductList extends Component {
   }
 }
 
-export default ProductList;
+export default withRouter(ProductList);
